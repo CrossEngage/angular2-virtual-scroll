@@ -33,6 +33,8 @@ export declare class VirtualScrollComponent implements OnInit, OnDestroy, OnChan
     ngOnDestroy(): void;
     refresh(): void;
     scrollInto(item: any): void;
+    scrollIntoView(item: any): void;
+    getRootElement(): ElementRef;
     private countItemsPerRow();
     private calculateDimensions();
     private calculateItems();

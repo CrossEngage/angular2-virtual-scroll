@@ -8,6 +8,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+Object.defineProperty(exports, "__esModule", { value: true });
 require("rxjs/add/operator/switchMap");
 require("rxjs/add/observable/of");
 var core_1 = require("@angular/core");
@@ -69,6 +70,25 @@ var VirtualScrollComponent = (function () {
             d.childHeight - Math.max(0, (d.itemsPerCol - 1)) * d.childHeight;
         this.refresh();
     };
+    VirtualScrollComponent.prototype.scrollIntoView = function (item) {
+        var index = (this.items || []).indexOf(item);
+        if (index < 0 || index >= (this.items || []).length)
+            return;
+        var d = this.calculateDimensions();
+        var current = this.element.nativeElement.scrollTop;
+        var beginningOfItem = Math.floor(index / d.itemsPerRow) * d.childHeight;
+        if (current > beginningOfItem) {
+            this.element.nativeElement.scrollTop = beginningOfItem;
+        }
+        else {
+            this.element.nativeElement.scrollTop = beginningOfItem - d.viewHeight + d.childHeight;
+        }
+        this.refresh();
+    };
+    VirtualScrollComponent.prototype.getRootElement = function () {
+        return this.element;
+    };
+    ;
     VirtualScrollComponent.prototype.countItemsPerRow = function () {
         var offsetTop;
         var itemsPerRow;
